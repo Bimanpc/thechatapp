@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Based Chat</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f0f0f0; margin: 0; padding: 20px; }
+        #chatContainer { display: flex; flex-direction: column; height: 80vh; background: #fff; padding: 10px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); overflow: hidden; }
+        #messages { flex-grow: 1; overflow-y: auto; padding: 10px; border-bottom: 1px solid #ddd; }
+        .message { margin: 5px 0; padding: 10px; border-radius: 5px; }
+        .message.sent { background: #dcf8c6; align-self: flex-end; }
+        .message.received { background: #e5e5ea; align-self: flex-start; }
+        #inputContainer { display: flex; }
+        #messageInput { flex-grow: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        #sendButton { padding: 10px 20px; background: #25d366; color: #fff; border: none; border-radius: 5px; margin-left: 5px; }
+    </style>
+</head>
+<body>
+    <h1>WhatsApp Based Chat</h1>
+    <div id="chatContainer">
+        <div id="messages"></div>
+        <div id="inputContainer">
+            <input type="text" id="messageInput" placeholder="Type your message..." />
+            <button id="sendButton">Send</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('sendButton').addEventListener('click', sendMessage);
+
+        function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const messageText = messageInput.value.trim();
+            if (messageText) {
+                appendMessage(messageText, 'sent');
+                // Add your backend integration here
+                messageInput.value = '';
+            }
+        }
+
+        function appendMessage(text, type) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', type);
+            messageElement.textContent = text;
+            document.getElementById('messages').appendChild(messageElement);
+        }
+
+        // Example of receiving a message
+        function receiveMessage(text) {
+            appendMessage(text, 'received');
+        }
+
+        // Example usage
+        setTimeout(() => receiveMessage('Hello! This is a sample received message.'), 2000);
+    </script>
+</body>
+</html>
